@@ -134,7 +134,7 @@ namespace KeepSpawningLadders
                         )
                         {
                             // For easier debugging
-                            if (this.Config.PlayRodBend)
+                            if (this.Config.PlayDebugSound)
                             {
                                 mine.playSound("fishingRodBend");
                             }

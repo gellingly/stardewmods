@@ -1,4 +1,4 @@
 public sealed class ModConfig
 {
-    public bool PlayRodBend { get; set; } = false;
+    public bool PlayDebugSound { get; set; } = false;
 }
