@@ -8,7 +8,7 @@ using StardewValley.Locations;
 using xTile.Layers;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace LadderSpawnEvenWhenAlreadyExist
+namespace KeepSpawningLadders
 {
     /// <summary>The mod entry point.</summary>
     internal sealed class ModEntry : Mod
