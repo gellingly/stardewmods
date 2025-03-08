@@ -136,7 +136,7 @@ namespace KeepSpawningLadders
                             // For easier debugging
                             if (this.Config.PlayDebugSound)
                             {
-                                mine.playSound("fishingRodBend");
+                                mine.playSound("dog_bark", null, null);
                             }
                             mine.createLadderDown((int)r.Key.X, (int)r.Key.Y);
                             // Don't create more
