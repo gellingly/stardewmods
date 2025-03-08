@@ -10,7 +10,6 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace KeepSpawningLadders
 {
-    /// <summary>The mod entry point.</summary>
     internal sealed class ModEntry : Mod
     {
         private ModConfig Config;
@@ -60,11 +59,6 @@ namespace KeepSpawningLadders
 
         private void OnObjectListChanged(object? sender, ObjectListChangedEventArgs e)
         {
-            // this.Monitor.Log(
-            //     $"Added {e.Added.Count()} Removed {e.Removed.Count()}",
-            //     LogLevel.Debug
-            // );
-
             if (e.IsCurrentLocation && e.Location is MineShaft mine)
             {
                 int stonesLeftBeforeBreaking = mine.stonesLeftOnThisLevel;
@@ -81,7 +75,7 @@ namespace KeepSpawningLadders
                         );
                         if (tileIndex == 174 || tileIndex == 173)
                         {
-                            // this.Monitor.Log("  Stone had a ladder", LogLevel.Debug);
+                            // Stone had a ladder
                             return;
                         }
                         // Count the number of stones on this level prior to
@@ -91,10 +85,6 @@ namespace KeepSpawningLadders
                 }
                 HashSet<Vector2> ladders = getLadders(mine);
 
-                // this.Monitor.Log(
-                //     $"  {ladders} ladders, {stonesLeftBeforeBreaking} stones left",
-                //     LogLevel.Debug
-                // );
                 // Treat ladders as unbroken stone to prevent too many ladders
                 // from spawning when there are very few stones left
                 stonesLeftBeforeBreaking += ladders.Count();
@@ -143,12 +133,12 @@ namespace KeepSpawningLadders
                             && mine.shouldCreateLadderOnThisLevel()
                         )
                         {
+                            // For easier debugging
                             if (this.Config.PlayRodBend)
                             {
                                 mine.playSound("fishingRodBend");
                             }
                             mine.createLadderDown((int)r.Key.X, (int)r.Key.Y);
-                            // this.Monitor.Log("  Creating a ladder", LogLevel.Debug);
                             // Don't create more
                             return;
                         }
