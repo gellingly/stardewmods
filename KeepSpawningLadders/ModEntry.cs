@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-using Microsoft.Xna.Framework;
-using StardewModdingAPI;
+﻿using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Extensions;
@@ -136,6 +134,10 @@ namespace KeepSpawningLadders
                             // For easier debugging
                             if (this.Config.PlayDebugSound)
                             {
+                                this.Monitor.Log(
+                                    $"Created ladder on level {mine.mineLevel}",
+                                    LogLevel.Debug
+                                );
                                 mine.playSound("dog_bark", null, null);
                             }
                             mine.createLadderDown((int)r.Key.X, (int)r.Key.Y);

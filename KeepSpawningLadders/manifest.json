@@ -6,5 +6,7 @@
   "UniqueID": "gellingly.KeepSpawningLadders",
   "EntryDll": "KeepSpawningLadders.dll",
   "MinimumApiVersion": "4.0.0",
-  "UpdateKeys": []
+  "UpdateKeys": [
+    "Nexus:32235"
+  ]
 }
