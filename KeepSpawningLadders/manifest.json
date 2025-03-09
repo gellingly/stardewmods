@@ -1,0 +1,12 @@
+{
+  "Name": "KeepSpawningLadders",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Breaking rocks can still spawn ladders even if one already exists",
+  "UniqueID": "gellingly.KeepSpawningLadders",
+  "EntryDll": "KeepSpawningLadders.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:32235"
+  ]
+}
