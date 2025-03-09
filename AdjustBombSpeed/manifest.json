@@ -1,0 +1,12 @@
+{
+  "Name": "AdjustBombSpeed",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Adjust how long before a bomb explodes",
+  "UniqueID": "gellingly.AdjustBombSpeed",
+  "EntryDll": "AdjustBombSpeed.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:32291"
+  ]
+}
