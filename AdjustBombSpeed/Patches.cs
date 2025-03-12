@@ -46,7 +46,7 @@ internal class Patches
     {
         try
         {
-            if (isBomb(__instance) && Game1.shouldTimePass())
+            if (isBomb(__instance))
             {
                 Monitor.Log("Placed bomb");
                 foreach (TemporaryAnimatedSprite sprite in Game1.currentLocation.temporarySprites)
