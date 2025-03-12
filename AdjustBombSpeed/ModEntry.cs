@@ -2,7 +2,6 @@
 using HarmonyLib;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewValley.Monsters;
 
 namespace AdjustBombSpeed
 {
@@ -21,8 +20,6 @@ namespace AdjustBombSpeed
 
             var harmony = new Harmony(this.ModManifest.UniqueID);
 
-            // Probably not good practice to put patches for different class in
-            // the same patching class but w/e
             harmony.Patch(
                 original: AccessTools.Method(
                     typeof(StardewValley.Object),
