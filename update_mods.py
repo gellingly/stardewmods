@@ -1,5 +1,8 @@
+import argparse
 import glob
 from pathlib import Path
+import re
+import webbrowser
 import zipfile
 import os
 import shutil
@@ -9,6 +12,7 @@ load_dotenv()
 
 MODS_FOLDER = Path(os.environ["MODS_FOLDER"])
 DOWNLOADS_FOLDER = Path(os.environ["DOWNLOADS_FOLDER"])
+SMAPI_LOGS = Path(os.environ["SMAPI_LOGS"])
 
 
 def unzip_file(zip_path, extract_to=None):
@@ -27,17 +31,18 @@ def unzip_file(zip_path, extract_to=None):
             extract_to = os.path.dirname(zip_path)
 
         zip_ref.extractall(extract_to)
-        print(f"Extracted all files to {extract_to}")
+        print(f"  Extracted all files to {extract_to}")
 
 
-def main():
+def update_mods():
     for file in glob.glob(f"{DOWNLOADS_FOLDER}/*.zip"):
         print(Path(file).stem)
         unzip_to = DOWNLOADS_FOLDER / Path(file).stem
         unzip_file(file, unzip_to)
+        os.remove(file)
 
         def clean_up():
-            print(f"failed to update {Path(file).stem}")
+            print(f"  failed to update {Path(file).stem}")
 
         # Get subfolder = name of mod
         entries = os.listdir(unzip_to)
@@ -50,12 +55,12 @@ def main():
         mod_name = entries[0]
         mod = MODS_FOLDER / mod_name
         if not os.path.isdir(mod):
-            print(f"mod {mod} is not a directory")
+            print(f"  mod is not a directory")
             clean_up()
             continue
 
         if not os.path.isfile(mod / "manifest.json"):
-            print(f"mod {mod} has no manifest.json")
+            print(f"  mod has no manifest.json")
             clean_up()
             continue
 
@@ -68,7 +73,36 @@ def main():
 
         shutil.rmtree(unzip_to)
         os.remove(file)
-        print(f"finished {Path(file).stem}")
+        print(f"  finished {Path(file).stem}")
+
+
+def open_links():
+    with open(SMAPI_LOGS / "SMAPI-latest.txt", "r") as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if (x := re.search(r": (https?://.*) \(you have .*\)", line)) is not None:
+            link = x.group(1)
+            print(link)
+            webbrowser.open(link)  # Open the link in the default web browser
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Unzip and update mods.")
+    parser.add_argument(
+        "--open",
+        action="store_true",
+        help="Open links for mods that need updating according to the most recent SMAPI log",
+    )
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    if args.open:
+        open_links()
+    else:
+        update_mods()
 
 
 if __name__ == "__main__":
