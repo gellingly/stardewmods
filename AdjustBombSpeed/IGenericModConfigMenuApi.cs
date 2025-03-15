@@ -42,5 +42,10 @@ namespace GenericModConfigMenu
             Func<float, string> formatValue = null,
             string fieldId = null
         );
+
+        /// <summary>Add a paragraph of text at the current position in the form.</summary>
+        /// <param name="mod">The mod's manifest.</param>
+        /// <param name="text">The paragraph text to display.</param>
+        void AddParagraph(IManifest mod, Func<string> text);
     }
 }
