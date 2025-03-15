@@ -12,11 +12,38 @@ internal class Patches
         Config = config;
     }
 
+    private static float getMultiplier(StardewValley.Object o)
+    {
+        switch (o.QualifiedItemId)
+        {
+            case "(O)286":
+                return Config.CherryBombMultiplier;
+            case "(O)287":
+                return Config.BombMultiplier;
+            case "(O)288":
+                return Config.MegaBombMultiplier;
+            case "(O)ApryllForever.IridiumBombsCP_IridiumBomb":
+                return Config.IridiumBombMultiplier;
+            case "(O)ApryllForever.IridiumBombsCP_IridiumClusterBomb":
+                return Config.IridiumClusterBombMultiplier;
+            default:
+                Monitor.Log(
+                    $"How did you get here? Bomb multiplier not found for {o.QualifiedItemId}. Using default multiplier 1.",
+                    LogLevel.Debug
+                );
+                return 1f;
+        }
+    }
+
     private static bool isBomb(StardewValley.Object o)
     {
-        return o.QualifiedItemId == "(O)287"
-            || o.QualifiedItemId == "(O)286"
-            || o.QualifiedItemId == "(O)288";
+        return (
+            o.QualifiedItemId == "(O)286"
+            || o.QualifiedItemId == "(O)287"
+            || o.QualifiedItemId == "(O)288"
+            || o.QualifiedItemId == "(O)ApryllForever.IridiumBombsCP_IridiumBomb"
+            || o.QualifiedItemId == "(O)ApryllForever.IridiumBombsCP_IridiumClusterBomb"
+        );
     }
 
     internal static bool placementAction_Prefix(
@@ -53,12 +80,11 @@ internal class Patches
                 {
                     if (!__state.Contains(sprite) && sprite.bombRadius > 0)
                     {
+                        float multiplier = getMultiplier(__instance);
                         Monitor.Log(
-                            $"Setting totalNumberOfLoops for bomb sprite with multiplier {Config.Multiplier}"
+                            $"Setting totalNumberOfLoops for bomb sprite with multiplier {multiplier}"
                         );
-                        sprite.totalNumberOfLoops = (int)(
-                            sprite.totalNumberOfLoops * Config.Multiplier
-                        );
+                        sprite.totalNumberOfLoops = (int)(sprite.totalNumberOfLoops * multiplier);
                     }
                 }
             }

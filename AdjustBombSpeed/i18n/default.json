@@ -1,4 +1,3 @@
 {
-    "name": "Multiplier",
-    "tooltip": "Multiplier for bomb explosion speed. 0 for instant, 0.5 to halve the time, 1 for no change, 2 for twice as fast, etc"
+    "SettingsInstructions": "Multipliers for each bomb.  0 for instant, 0.5 to halve the time, 1 for no change, 2 for twice as fast, etc"
 }
