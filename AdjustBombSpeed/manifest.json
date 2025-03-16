@@ -1,7 +1,7 @@
 {
   "Name": "AdjustBombSpeed",
   "Author": "gellingly",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "Description": "Adjust how long before a bomb explodes",
   "UniqueID": "gellingly.AdjustBombSpeed",
   "EntryDll": "AdjustBombSpeed.dll",
