@@ -130,11 +130,11 @@ namespace StackMoreThings
                 getValue: () => this.Config.MaxStackSize.ToString(),
                 setValue: value =>
                 {
-                    int stackSize = 999;
+                    int stackSize = 9999;
                     int.TryParse(value, out stackSize);
                     if (stackSize < 0)
                     {
-                        stackSize = 999;
+                        stackSize = 9999;
                     }
                     this.Config.MaxStackSize = stackSize;
                 }
@@ -145,6 +145,11 @@ namespace StackMoreThings
                 tooltip: () => this.Helper.Translation.Get("EnableComplexPatchesTooltip"),
                 getValue: () => this.Config.EnableComplexPatches,
                 setValue: value => this.Config.EnableComplexPatches = value
+            );
+
+            configMenu.AddSectionTitle(
+                mod: this.ModManifest,
+                text: () => this.Helper.Translation.Get("Stacks")
             );
 
             configMenu.AddParagraph(
@@ -190,14 +195,14 @@ namespace StackMoreThings
                             ?.SetValue(this.Config, value)
                 );
             }
-            configMenu.AddParagraph(
+            configMenu.AddSectionTitle(
                 mod: this.ModManifest,
                 text: () => this.Helper.Translation.Get("Keybinds")
             );
             configMenu.AddKeybind(
                 mod: this.ModManifest,
                 name: () => this.Helper.Translation.Get("ColorMerge"),
-                tooltip: () => this.Helper.Translation.Get("ColorMergeToolltip"),
+                tooltip: () => this.Helper.Translation.Get("ColorMergeTooltip"),
                 getValue: () => this.Config.ColorMergeKey,
                 setValue: (value) => this.Config.ColorMergeKey = value
             );

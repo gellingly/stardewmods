@@ -1,13 +1,14 @@
 {
+    "Stacks": "Stack Types",
     "SettingsInstructions": "Toggle stacking for individual items if something is buggy",
     "Weapons": "Weapons",
     "MaxStackSize": "Maximum stack size for all items",
-    "MaxStackSizeTooltip": "If the input is not a valid number, it will be set to 999",
+    "MaxStackSizeTooltip": "If the input is not a valid number, it will be set to 9999",
     "ColorMerge": "Merge colors",
-    "ColorMergeToolip": "Hold down this key while organizing your chest or inventory to merge colors with multiple colors into one",
+    "ColorMergeTooltip": "Hold down this key while organizing your chest or inventory to merge colors with multiple colors into one",
     "QualityReduce": "Reduce quality",
     "QualityReduceTooltip": "Hold down this key while organizing your chest or inventory to reduce the quality of items to none",
     "Keybinds": "Keybinds",
     "EnableComplexPatches": "Enable complex patches",
-    "EnableComplexPatchesToltip": "Enables correct behavior for tackle usage, furniture placement, forging, etc. Generally should be turned on. Turn off only if you see bugs"
+    "EnableComplexPatchesTooltip": "Enables correct behavior for tackle usage, furniture placement, forging, etc. Generally should be turned on. Turn off only if you see bugs"
 }
