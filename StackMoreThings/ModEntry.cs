@@ -93,21 +93,6 @@ namespace StackMoreThings
                     }
                 }
             }
-
-            Helper.ConsoleCommands.Add(
-                "type_of",
-                "Prints the type of the item currently held",
-                (string command, string[] args) =>
-                {
-                    var item = Game1.player.ActiveItem;
-                    if (item is null)
-                    {
-                        this.Monitor.Log("No item held", LogLevel.Warn);
-                        return;
-                    }
-                    this.Monitor.Log(item.GetType().Name, LogLevel.Warn);
-                }
-            );
         }
 
         private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
