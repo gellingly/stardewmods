@@ -1,0 +1,12 @@
+{
+    "Name": "Stack More Things",
+    "Author": "gellingly",
+    "Version": "1.0.0",
+    "Description": "Stack things like trinkets, tackle, weapons, etc; merge colors and quality; adjust stack size.",
+    "UniqueID": "gellingly.StackMoreThings",
+    "EntryDll": "StackMoreThings.dll",
+    "MinimumApiVersion": "4.0.0",
+    "UpdateKeys": [
+        "Nexus:32562"
+    ]
+}
