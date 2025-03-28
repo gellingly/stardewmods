@@ -1,8 +1,11 @@
+using HarmonyLib;
+
 namespace StackMoreThings.Patches;
 
+[HarmonyPatch(typeof(StardewValley.Object), nameof(StardewValley.Object.maximumStackSize))]
 public class MaxStackSizeGeneral
 {
-    public static void maximumStackSize_Postfix(ref int __result, StardewValley.Object __instance)
+    public static void Postfix(ref int __result)
     {
         try
         {

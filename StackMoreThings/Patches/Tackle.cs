@@ -1,3 +1,4 @@
+using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Extensions;
@@ -5,20 +6,25 @@ using StardewValley.Tools;
 
 namespace StackMoreThings.Patches;
 
-public class StackTacklePatches
+[HarmonyPatch(typeof(StardewValley.Object), nameof(StardewValley.Object.maximumStackSize))]
+public static class TackleMaxStackSize
 {
-    public static void maximumStackSize_Postfix(StardewValley.Object __instance, ref int __result)
+    public static void Postfix(StardewValley.Object __instance, ref int __result)
     {
         CommonUtils.setMaxStackSize(
             ref __result,
             CommonUtils.config.Tackle && __instance.Category == -22
         );
     }
+}
 
+[HarmonyPatch(typeof(Item), nameof(Item.addToStack))]
+public static class TackleAddToStack
+{
     public static bool ranPrefix = false;
     public static int totalUses;
 
-    public static bool addToStack_Prefix(Item otherStack, Item __instance)
+    public static bool Prefix(Item otherStack, Item __instance)
     {
         ranPrefix = true;
         if (
@@ -39,7 +45,7 @@ public class StackTacklePatches
         return true;
     }
 
-    public static void addToStack_Postfix(Item otherStack, ref int __result, Item __instance)
+    public static void Postfix(Item otherStack, ref int __result, Item __instance)
     {
         try
         {
@@ -95,8 +101,12 @@ public class StackTacklePatches
         ranPrefix = false;
         return;
     }
+}
 
-    public static void ConsumeStack_Postfix(Item __instance, ref Item? __result)
+[HarmonyPatch(typeof(Item), nameof(Item.ConsumeStack))]
+public static class TackleConsumeStack
+{
+    public static void Postfix(ref Item? __result)
     {
         try
         {
@@ -114,10 +124,14 @@ public class StackTacklePatches
             CommonUtils.harmonyExceptionPrint(ex);
         }
     }
+}
 
+[HarmonyPatch(typeof(FishingRod), nameof(FishingRod.doneFishing))]
+public static class TackleDoneFishing
+{
     static List<StardewValley.Object> tacklesOnRod;
 
-    public static void doDoneFishing_Prefix(FishingRod __instance)
+    public static void Prefix(FishingRod __instance)
     {
         try
         {
@@ -133,7 +147,7 @@ public class StackTacklePatches
         }
     }
 
-    public static void doDoneFishing_Postfix(FishingRod __instance)
+    public static void Postfix(FishingRod __instance)
     {
         try
         {

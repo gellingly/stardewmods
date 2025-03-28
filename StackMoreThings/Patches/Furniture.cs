@@ -1,16 +1,22 @@
+using HarmonyLib;
 using StardewValley;
 using StardewValley.Objects;
 
 namespace StackMoreThings.Patches;
 
-public class StackFurniturePatches
+[HarmonyPatch(typeof(Furniture), nameof(Furniture.maximumStackSize))]
+public class FurnitureMaxStackSize
 {
-    public static void maximumStackSize_Postfix(ref int __result, Furniture __instance)
+    public static void Postfix(ref int __result)
     {
         CommonUtils.setMaxStackSize(ref __result, CommonUtils.config.Furniture);
     }
+}
 
-    public static void canStackWith_Postfix(ISalable other, ref bool __result, Item __instance)
+[HarmonyPatch(typeof(Item), nameof(Item.canStackWith))]
+public class FurnitureCanStackWith
+{
+    public static void Postfix(ISalable other, ref bool __result, Item __instance)
     {
         try
         {
@@ -32,8 +38,12 @@ public class StackFurniturePatches
             CommonUtils.harmonyExceptionPrint(ex);
         }
     }
+}
 
-    public static void placementAction_Postfix(Furniture __instance)
+[HarmonyPatch(typeof(Furniture), nameof(Furniture.placementAction))]
+public class FurniturePlacementAction
+{
+    public static void Postfix(Furniture __instance)
     {
         try
         {
