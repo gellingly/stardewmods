@@ -3,6 +3,8 @@ using StardewValley;
 using StardewValley.Extensions;
 using StardewValley.Tools;
 
+namespace StackMoreThings.Patches;
+
 public class StackTacklePatches
 {
     public static void maximumStackSize_Postfix(StardewValley.Object __instance, ref int __result)

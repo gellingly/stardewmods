@@ -2,6 +2,8 @@ using System.Runtime.CompilerServices;
 using StardewModdingAPI;
 using StardewValley;
 
+namespace StackMoreThings;
+
 static class CommonUtils
 {
     public static ModConfig config;

@@ -1,6 +1,8 @@
 using StardewValley;
 using StardewValley.Objects.Trinkets;
 
+namespace StackMoreThings.Patches;
+
 public class StackTrinketPatches
 {
     public static void maximumStackSize_Postfix(Trinket __instance, ref int __result)

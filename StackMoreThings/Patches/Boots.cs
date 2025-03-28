@@ -1,6 +1,8 @@
 using StardewValley;
 using StardewValley.Objects;
 
+namespace StackMoreThings.Patches;
+
 public static class StackBootsPatches
 {
     public static void maximumStackSize_Postfix(Boots __instance, ref int __result)
