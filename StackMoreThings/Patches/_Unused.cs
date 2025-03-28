@@ -3,6 +3,8 @@ using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
 
+namespace StackMoreThings;
+
 public class FarmerPatches
 {
     private static IMonitor Monitor;

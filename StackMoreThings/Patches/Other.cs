@@ -5,6 +5,8 @@ using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
 
+namespace StackMoreThings.Patches;
+
 public static class StackColorQuality
 {
     private static List<int> cropCategories =

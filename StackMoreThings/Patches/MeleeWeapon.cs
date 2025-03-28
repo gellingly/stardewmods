@@ -3,6 +3,8 @@ using StardewValley;
 using StardewValley.Enchantments;
 using StardewValley.Tools;
 
+namespace StackMoreThings.Patches;
+
 public class StackMeleeWeaponPatches
 {
     public static void maximumStackSize_Postfix(ref int __result, MeleeWeapon __instance)

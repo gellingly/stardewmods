@@ -1,5 +1,7 @@
 using StardewModdingAPI;
 
+namespace StackMoreThings;
+
 public sealed class ModConfig
 {
     public int MaxStackSize { get; set; } = 9999;

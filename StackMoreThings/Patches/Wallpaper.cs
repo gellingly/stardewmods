@@ -1,6 +1,8 @@
 using StardewValley;
 using StardewValley.Objects;
 
+namespace StackMoreThings.Patches;
+
 public class StackWallpaperPatches
 {
     public static void maximumStackSize_Postfix(Wallpaper __instance, ref int __result)
