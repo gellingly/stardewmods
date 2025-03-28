@@ -1,16 +1,22 @@
+using HarmonyLib;
 using StardewValley;
 using StardewValley.Objects;
 
 namespace StackMoreThings.Patches;
 
-public static class StackClothingPatches
+[HarmonyPatch(typeof(Clothing), nameof(Clothing.maximumStackSize))]
+public static class ClothingStackSize
 {
-    public static void maximumStackSize_Postfix(Clothing __instance, ref int __result)
+    public static void Postfix(ref int __result)
     {
         CommonUtils.setMaxStackSize(ref __result, CommonUtils.config.Clothing);
     }
+}
 
-    public static void canStackWith_Postfix(ISalable other, ref bool __result, Item __instance)
+[HarmonyPatch(typeof(Item), nameof(Item.canStackWith))]
+public static class ClothingCanStackWith
+{
+    public static void Postfix(ISalable other, ref bool __result, Item __instance)
     {
         try
         {

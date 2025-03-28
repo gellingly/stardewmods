@@ -1,16 +1,22 @@
+using HarmonyLib;
 using StardewValley;
 using StardewValley.Objects;
 
 namespace StackMoreThings.Patches;
 
-public class StackRingsPatches
+[HarmonyPatch(typeof(Ring), nameof(Ring.maximumStackSize))]
+public static class RingMaxStackSize
 {
-    public static void maximumStackSize_Postfix(ref int __result, Ring __instance)
+    public static void Postfix(ref int __result)
     {
         CommonUtils.setMaxStackSize(ref __result, CommonUtils.config.Rings);
     }
+}
 
-    public static void canStackWith_Postfix(ISalable other, ref bool __result, Item __instance)
+[HarmonyPatch(typeof(Item), nameof(Item.canStackWith))]
+public static class RingCanStackWith
+{
+    public static void Postfix(ISalable other, ref bool __result, Item __instance)
     {
         try
         {

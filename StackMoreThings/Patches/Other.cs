@@ -1,3 +1,4 @@
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
@@ -7,17 +8,10 @@ using StardewValley.Objects;
 
 namespace StackMoreThings.Patches;
 
+[HarmonyPatch(typeof(ItemGrabMenu), nameof(ItemGrabMenu.organizeItemsInList))]
 public static class StackColorQuality
 {
-    private static List<int> cropCategories =
-    [
-        StardewValley.Object.FruitsCategory,
-        StardewValley.Object.VegetableCategory,
-        StardewValley.Object.GreensCategory,
-        StardewValley.Object.flowersCategory,
-    ];
-
-    public static bool organizeItemsInList_Prefix(ItemGrabMenu __instance, IList<Item> items)
+    public static bool Prefix(IList<Item> items)
     {
         try
         {
@@ -31,93 +25,13 @@ public static class StackColorQuality
         return true;
     }
 
-    public static Item clothingLeftSpot;
-
-    public static bool CraftItem_Prefix(TailoringMenu __instance)
-    {
-        try
-        {
-            clothingLeftSpot = __instance.leftIngredientSpot.item.getOne();
-            clothingLeftSpot.stack.Value = __instance.leftIngredientSpot.item.stack.Value;
-            __instance.leftIngredientSpot.item.stack.Value = 1;
-        }
-        catch (Exception ex)
-        {
-            CommonUtils.harmonyExceptionPrint(ex);
-        }
-        return true;
-    }
-
-    public static void CraftItem_Postfix(TailoringMenu __instance)
-    {
-        try
-        {
-            if (!CommonUtils.config.EnableComplexPatches)
-            {
-                return;
-            }
-            if (clothingLeftSpot != null)
-            {
-                __instance.leftIngredientSpot.item = clothingLeftSpot;
-            }
-            else
-            {
-                CommonUtils.monitor.Log(
-                    $"Left ingredient spot was null, prefix didn't run. Did another mod patch TailoringMenu?",
-                    LogLevel.Error
-                );
-            }
-            clothingLeftSpot = null;
-        }
-        catch (Exception ex)
-        {
-            CommonUtils.harmonyExceptionPrint(ex);
-        }
-    }
-
-    public static Item forgeLeftSpot;
-
-    public static bool CraftItem_Prefix(ForgeMenu __instance)
-    {
-        try
-        {
-            forgeLeftSpot = __instance.leftIngredientSpot.item.getOne();
-            forgeLeftSpot.stack.Value = __instance.leftIngredientSpot.item.stack.Value;
-            __instance.leftIngredientSpot.item.stack.Value = 1;
-        }
-        catch (Exception ex)
-        {
-            CommonUtils.harmonyExceptionPrint(ex);
-        }
-        return true;
-    }
-
-    public static void CraftItem_Postfix(ForgeMenu __instance)
-    {
-        try
-        {
-            if (!CommonUtils.config.EnableComplexPatches)
-            {
-                return;
-            }
-            if (forgeLeftSpot != null)
-            {
-                __instance.leftIngredientSpot.item = forgeLeftSpot;
-            }
-            else
-            {
-                CommonUtils.monitor.Log(
-                    $"Left ingredient spot was null, prefix didn't run. Did another mod patch ForgeMenu?",
-                    LogLevel.Error
-                );
-            }
-            forgeLeftSpot = null;
-        }
-        catch (Exception ex)
-        {
-            CommonUtils.harmonyExceptionPrint(ex);
-        }
-    }
+    private static List<int> cropCategories =
+    [
+        StardewValley.Object.FruitsCategory,
+        StardewValley.Object.VegetableCategory,
+        StardewValley.Object.GreensCategory,
+        StardewValley.Object.flowersCategory,
+    ];
 
     private static bool isSButtonDown(SButton sButton)
     {
@@ -165,6 +79,102 @@ public static class StackColorQuality
             {
                 i.Quality = 0;
             }
+        }
+    }
+}
+
+[HarmonyPatch(typeof(TailoringMenu), nameof(TailoringMenu.CraftItem))]
+public static class TailoringMenuCraft
+{
+    public static Item clothingLeftSpot;
+
+    public static bool Prefix(TailoringMenu __instance)
+    {
+        try
+        {
+            clothingLeftSpot = __instance.leftIngredientSpot.item.getOne();
+            clothingLeftSpot.stack.Value = __instance.leftIngredientSpot.item.stack.Value;
+            __instance.leftIngredientSpot.item.stack.Value = 1;
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+        return true;
+    }
+
+    public static void Postfix(TailoringMenu __instance)
+    {
+        try
+        {
+            if (!CommonUtils.config.EnableComplexPatches)
+            {
+                return;
+            }
+            if (clothingLeftSpot != null)
+            {
+                __instance.leftIngredientSpot.item = clothingLeftSpot;
+            }
+            else
+            {
+                CommonUtils.monitor.Log(
+                    $"Left ingredient spot was null, prefix didn't run. Did another mod patch TailoringMenu?",
+                    LogLevel.Error
+                );
+            }
+            clothingLeftSpot = null;
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+    }
+}
+
+[HarmonyPatch(typeof(ForgeMenu), nameof(ForgeMenu.CraftItem))]
+public static class ForgeMenuCraft
+{
+    public static Item forgeLeftSpot;
+
+    public static bool Prefix(ForgeMenu __instance)
+    {
+        try
+        {
+            forgeLeftSpot = __instance.leftIngredientSpot.item.getOne();
+            forgeLeftSpot.stack.Value = __instance.leftIngredientSpot.item.stack.Value;
+            __instance.leftIngredientSpot.item.stack.Value = 1;
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+        return true;
+    }
+
+    public static void Postfix(ForgeMenu __instance)
+    {
+        try
+        {
+            if (!CommonUtils.config.EnableComplexPatches)
+            {
+                return;
+            }
+            if (forgeLeftSpot != null)
+            {
+                __instance.leftIngredientSpot.item = forgeLeftSpot;
+            }
+            else
+            {
+                CommonUtils.monitor.Log(
+                    $"Left ingredient spot was null, prefix didn't run. Did another mod patch ForgeMenu?",
+                    LogLevel.Error
+                );
+            }
+            forgeLeftSpot = null;
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
         }
     }
 }

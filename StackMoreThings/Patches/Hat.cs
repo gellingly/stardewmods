@@ -1,16 +1,22 @@
+using HarmonyLib;
 using StardewValley;
 using StardewValley.Objects;
 
 namespace StackMoreThings.Patches;
 
-public static class StackHatPatches
+[HarmonyPatch(typeof(Hat), nameof(Hat.maximumStackSize))]
+public static class HatMaxStackSize
 {
-    public static void maximumStackSize_Postfix(Hat __instance, ref int __result)
+    public static void Postfix(ref int __result)
     {
         CommonUtils.setMaxStackSize(ref __result, CommonUtils.config.Hats);
     }
+}
 
-    public static void canStackWith_Postfix(ISalable other, ref bool __result, Item __instance)
+[HarmonyPatch(typeof(Item), nameof(Item.canStackWith))]
+public static class HatCanStackWith
+{
+    public static void Postfix(ISalable other, ref bool __result, Item __instance)
     {
         try
         {

@@ -1,16 +1,22 @@
+using HarmonyLib;
 using StardewValley;
 using StardewValley.Objects.Trinkets;
 
 namespace StackMoreThings.Patches;
 
-public class StackTrinketPatches
+[HarmonyPatch(typeof(Trinket), nameof(Trinket.maximumStackSize))]
+public static class TrinketStackSize
 {
-    public static void maximumStackSize_Postfix(Trinket __instance, ref int __result)
+    public static void Postfix(ref int __result)
     {
         CommonUtils.setMaxStackSize(ref __result, CommonUtils.config.Trinkets);
     }
+}
 
-    public static void canStackWith_Postfix(ISalable other, ref bool __result, Item __instance)
+[HarmonyPatch(typeof(Item), nameof(Item.canStackWith))]
+public static class TrinketCanStackWith
+{
+    public static void Postfix(ISalable other, ref bool __result, Item __instance)
     {
         try
         {

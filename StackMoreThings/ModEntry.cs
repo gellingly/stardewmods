@@ -1,6 +1,5 @@
 ﻿using GenericModConfigMenu;
 using HarmonyLib;
-using StackMoreThings.Patches;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -14,85 +13,13 @@ internal sealed class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         this.Config = this.Helper.ReadConfig<ModConfig>();
-        helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-
-        var harmony = new Harmony(this.ModManifest.UniqueID);
         CommonUtils.config = this.Config;
         CommonUtils.monitor = this.Monitor;
 
-        var patches = new List<Type>
-        {
-            typeof(StackTacklePatches),
-            typeof(StackRingsPatches),
-            typeof(StackMeleeWeaponPatches),
-            typeof(StackTrinketPatches),
-            typeof(StackFurniturePatches),
-            typeof(StackBootsPatches),
-            typeof(StackHatPatches),
-            typeof(StackClothingPatches),
-            typeof(StackWallpaperPatches),
-            typeof(MaxStackSizeGeneral),
-            typeof(StackColorQuality),
-        };
+        helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
-        // Is it stupid to patch Items.canStackWith every time? Probably.
-        // Does it make it eaiser to think about? Yes
-        foreach (var patch in patches)
-        {
-            foreach (var method in patch.GetMethods())
-            {
-                bool isPrefix = method.Name.EndsWith("_Prefix");
-                bool isPostfix = method.Name.EndsWith("_Postfix");
-                if (isPrefix || isPostfix)
-                {
-                    var arguments = method.GetParameters();
-                    bool foundThingToBePatched = false;
-                    foreach (var argument in arguments)
-                    {
-                        if (argument.Name == "__instance")
-                        {
-                            if (isPrefix)
-                            {
-                                harmony.Patch(
-                                    original: AccessTools.Method(
-                                        argument.ParameterType,
-                                        method.Name[..^7]
-                                    ),
-                                    prefix: new HarmonyMethod(
-                                        patch,
-                                        method.Name,
-                                        method.GetParameters().Types()
-                                    )
-                                );
-                            }
-                            else
-                            {
-                                harmony.Patch(
-                                    original: AccessTools.Method(
-                                        argument.ParameterType,
-                                        method.Name[..^8]
-                                    ),
-                                    postfix: new HarmonyMethod(
-                                        patch,
-                                        method.Name,
-                                        method.GetParameters().Types()
-                                    )
-                                );
-                            }
-                            foundThingToBePatched = true;
-                            break;
-                        }
-                    }
-                    if (!foundThingToBePatched)
-                    {
-                        this.Monitor.Log(
-                            $"Failed to patch {method.Name} in {patch.Name}. No __instance parameter found.",
-                            LogLevel.Error
-                        );
-                    }
-                }
-            }
-        }
+        var harmony = new Harmony(this.ModManifest.UniqueID);
+        harmony.PatchAll();
     }
 
     private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
