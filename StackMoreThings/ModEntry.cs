@@ -88,6 +88,7 @@ internal sealed class ModEntry : Mod
                     "Clothing",
                     Game1.content.LoadString("Strings\\StringsFromCSFiles:category_clothes")
                 },
+                { "Tools", this.Helper.Translation.Get("Tools") },
             };
         foreach (var configName in configNames)
         {

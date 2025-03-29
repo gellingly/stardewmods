@@ -7,6 +7,7 @@ public sealed class ModConfig
     public int MaxStackSize { get; set; } = 9999;
     public bool Trinkets { get; set; } = true;
     public bool Rings { get; set; } = true;
+    public bool Tools { get; set; } = true;
     public bool Weapons { get; set; } = true;
     public bool Furniture { get; set; } = true;
     public bool Tackle { get; set; } = true;

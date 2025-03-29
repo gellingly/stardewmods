@@ -2,6 +2,7 @@
     "Stacks": "Stack Types",
     "SettingsInstructions": "Toggle stacking for individual items if something is buggy",
     "Weapons": "Weapons",
+    "Tools": "Tools",
     "MaxStackSize": "Maximum stack size for all items",
     "MaxStackSizeTooltip": "If the input is not a valid number, it will be set to 9999",
     "ColorMerge": "Merge colors",
