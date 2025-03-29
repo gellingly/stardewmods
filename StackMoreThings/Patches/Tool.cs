@@ -47,7 +47,7 @@ public static class ToolCanStackWith
 [HarmonyPatch(typeof(Tool), nameof(Tool.canThisBeAttached), [typeof(StardewValley.Object)])]
 public static class FishingRodAttachment
 {
-    // Allows right click on fishing rod to unstack if they don't have
+    // Allows right click on fishing rod to unstack if it doesn't have
     // attachment slots
     public static void Postfix(StardewValley.Object o, ref bool __result, Tool __instance)
     {
