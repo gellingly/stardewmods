@@ -2,7 +2,7 @@
 
 Mod that allows you to stack things like furniture, tackle, clothing, etc. Also lets you adjust the maximum stack size for everything, merge crops of different colors into one stack, and reduce the quality of items so they can be stacked.
 
-Multiplayer has been reported as working but is untested by the author.
+Multiplayer has been reported as working.
 
 ## Config Options
 Supports Generic Mod Config Menu
