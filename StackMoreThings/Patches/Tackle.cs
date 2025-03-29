@@ -179,3 +179,84 @@ public static class TackleDoneFishing
         }
     }
 }
+
+[HarmonyPatch(typeof(Tool), nameof(Tool.attach))]
+public static class ToolAttach
+{
+    static StardewValley.Object copyTackle(StardewValley.Object o)
+    {
+        StardewValley.Object newO = (StardewValley.Object)o.getOne();
+        newO.uses.Value = o.uses.Value;
+        newO.Stack = o.Stack;
+        return newO;
+    }
+
+    // Prioritize putting tackle into empty tackle spots over stacking.  Prefix
+    // figures out if this is the case, postfix applies the change
+    static List<StardewValley.Object> desiredTackle = null;
+    static bool replaceTackle = false;
+
+    public static bool Prefix(Tool __instance, StardewValley.Object o)
+    {
+        try
+        {
+            if (
+                __instance is FishingRod
+                && o != null
+                && CommonUtils.config.EnableComplexPatches
+                && __instance.AttachmentSlotsCount == 3
+                && o.Category == -22
+            )
+            {
+                desiredTackle = [];
+                for (int i = 1; i < __instance.attachments.Count; i++)
+                {
+                    StardewValley.Object a = __instance.attachments[i];
+                    if (a == null)
+                    {
+                        if (replaceTackle)
+                        {
+                            desiredTackle.Add(null);
+                            continue;
+                        }
+                        desiredTackle.Add(copyTackle(o));
+                        replaceTackle = true;
+                        continue;
+                    }
+                    desiredTackle.Add(copyTackle(a));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+
+        return true;
+    }
+
+    public static void Postfix(Tool __instance, StardewValley.Object o)
+    {
+        try
+        {
+            if (
+                __instance is FishingRod
+                && CommonUtils.config.EnableComplexPatches
+                && __instance.AttachmentSlotsCount == 3
+                && replaceTackle
+            )
+            {
+                for (int i = 1; i < __instance.attachments.Count; i++)
+                {
+                    __instance.attachments[i] = desiredTackle[i - 1];
+                }
+            }
+            desiredTackle = null;
+            replaceTackle = false;
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+    }
+}
