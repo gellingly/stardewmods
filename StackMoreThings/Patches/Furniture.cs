@@ -54,6 +54,10 @@ public class FurniturePlacementAction
                 copy.Stack = __instance.Stack;
                 __instance.Stack = 1;
                 Game1.player.ActiveObject = copy;
+                if (CommonUtils.hasHappyHomeDesigner)
+                {
+                    copy.Stack--;
+                }
             }
         }
         catch (Exception ex)

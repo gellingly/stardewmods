@@ -15,6 +15,9 @@ internal sealed class ModEntry : Mod
         this.Config = this.Helper.ReadConfig<ModConfig>();
         CommonUtils.config = this.Config;
         CommonUtils.monitor = this.Monitor;
+        CommonUtils.hasHappyHomeDesigner = this.Helper.ModRegistry.IsLoaded(
+            "tlitookilakin.HappyHomeDesigner"
+        );
 
         helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
