@@ -89,4 +89,9 @@ static class CommonUtils
             && enchantListContainsAll(list, otherList)
             && enchantListContainsAll(otherList, list);
     }
+
+    public static void log(string s)
+    {
+        monitor.Log(s);
+    }
 }
