@@ -44,7 +44,7 @@ internal sealed class ModEntry : Mod
             {
                 int stackSize = 9999;
                 int.TryParse(value, out stackSize);
-                if (stackSize < 0)
+                if (stackSize <= 0)
                 {
                     stackSize = 9999;
                 }

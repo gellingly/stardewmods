@@ -3,7 +3,7 @@ using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
 
-namespace StackMoreThings;
+namespace StackMoreThings.Patches;
 
 public class FarmerPatches
 {
