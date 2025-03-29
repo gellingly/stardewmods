@@ -1,7 +1,5 @@
 using HarmonyLib;
-using Netcode;
 using StardewValley;
-using StardewValley.Enchantments;
 using StardewValley.Tools;
 
 namespace StackMoreThings.Patches;
@@ -28,41 +26,12 @@ public static class MeleeWeaponCanStackWith
                     other is MeleeWeapon b
                     && CommonUtils.commonCompares(__instance, other)
                     && a.appearance.Value == b.appearance.Value
-                    && a.enchantments.Count == b.enchantments.Count
-                    && listContainsAll(a.enchantments, b.enchantments)
-                    && listContainsAll(a.enchantments, b.enchantments);
+                    && CommonUtils.equalEnchantLists(a.enchantments, b.enchantments);
             }
         }
         catch (Exception ex)
         {
             CommonUtils.harmonyExceptionPrint(ex);
         }
-    }
-
-    public static bool listContainsAll(
-        NetList<BaseEnchantment, NetRef<BaseEnchantment>> list,
-        NetList<BaseEnchantment, NetRef<BaseEnchantment>> otherList
-    )
-    {
-        for (int i = 0; i < list.Count; i++)
-        {
-            var found = false;
-            for (int j = 0; j < otherList.Count; j++)
-            {
-                if (
-                    list[i].GetType() == otherList[j].GetType()
-                    && list[i].GetLevel() == otherList[j].GetLevel()
-                )
-                {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }

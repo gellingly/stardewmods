@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
+using Netcode;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Enchantments;
 
 namespace StackMoreThings;
 
@@ -49,5 +51,42 @@ static class CommonUtils
     )
     {
         monitor.Log($"Failed in {filePath}:{memberName}:{lineNumber}:\n{ex}", LogLevel.Error);
+    }
+
+    private static bool enchantListContainsAll(
+        NetList<BaseEnchantment, NetRef<BaseEnchantment>> list,
+        NetList<BaseEnchantment, NetRef<BaseEnchantment>> otherList
+    )
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            var found = false;
+            for (int j = 0; j < otherList.Count; j++)
+            {
+                if (
+                    list[i].GetType() == otherList[j].GetType()
+                    && list[i].GetLevel() == otherList[j].GetLevel()
+                )
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool equalEnchantLists(
+        NetList<BaseEnchantment, NetRef<BaseEnchantment>> list,
+        NetList<BaseEnchantment, NetRef<BaseEnchantment>> otherList
+    )
+    {
+        return list.Count == otherList.Count
+            && enchantListContainsAll(list, otherList)
+            && enchantListContainsAll(otherList, list);
     }
 }
