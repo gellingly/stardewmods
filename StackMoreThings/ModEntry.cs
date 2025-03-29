@@ -18,8 +18,10 @@ internal sealed class ModEntry : Mod
 
         helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
+        CommonUtils.log("Start patching");
         var harmony = new Harmony(this.ModManifest.UniqueID);
         harmony.PatchAll();
+        CommonUtils.log("Finished patching");
     }
 
     private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
@@ -69,32 +71,38 @@ internal sealed class ModEntry : Mod
             text: () => this.Helper.Translation.Get("SettingsInstructions")
         );
 
-        Dictionary<string, string> configNames =
+        Dictionary<string, Func<string>> configNames =
             new()
             {
                 {
                     "Tackle",
-                    Game1.content.LoadString("Strings\\StringsFromCSFiles:Object.cs.12858")
+                    () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Object.cs.12858")
                 },
-                { "Rings", Game1.content.LoadString("Strings\\StringsFromCSFiles:Ring.cs.1") },
-                { "Weapons", this.Helper.Translation.Get("Weapons") },
-                { "Trinkets", Game1.content.LoadString("Strings\\1_6_Strings:Trinket") },
+                {
+                    "Rings",
+                    () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Ring.cs.1")
+                },
+                { "Weapons", () => this.Helper.Translation.Get("Weapons") },
+                { "Trinkets", () => Game1.content.LoadString("Strings\\1_6_Strings:Trinket") },
                 {
                     "Furniture",
-                    Game1.content.LoadString("Strings\\StringsFromCSFiles:Object.cs.12859")
+                    () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Object.cs.12859")
                 },
-                { "Boots", Game1.content.LoadString("Strings\\StringsFromCSFiles:Boots.cs.12501") },
+                {
+                    "Boots",
+                    () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Boots.cs.12501")
+                },
                 {
                     "Clothing",
-                    Game1.content.LoadString("Strings\\StringsFromCSFiles:category_clothes")
+                    () => Game1.content.LoadString("Strings\\StringsFromCSFiles:category_clothes")
                 },
-                { "Tools", this.Helper.Translation.Get("Tools") },
+                { "Tools", () => this.Helper.Translation.Get("Tools") },
             };
         foreach (var configName in configNames)
         {
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => configNames[configName.Key],
+                name: configNames[configName.Key],
                 getValue: () =>
                     this.Config.GetType().GetProperty(configName.Key)?.GetValue(this.Config)
                         as bool?
