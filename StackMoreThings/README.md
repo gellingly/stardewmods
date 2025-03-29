@@ -5,7 +5,7 @@ Mod that allows you to stack things like furniture, tackle, clothing, etc. Also 
 Multiplayer has been reported as working.
 
 ## Translations
-* Chinese - thanks to an anonymous user
+* Chinese - thanks to anonymous user
 
 ## Config Options
 Supports Generic Mod Config Menu
