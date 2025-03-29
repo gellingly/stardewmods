@@ -23,14 +23,18 @@ public static class ToolCanStackWith
     {
         try
         {
-            if (__instance is Tool a && CommonUtils.config.Tools && __instance is not MeleeWeapon)
+            if (
+                __instance is Tool a
+                && CommonUtils.config.Tools
+                && __instance is not MeleeWeapon
+                && a.AttachmentSlotsCount == 0
+            )
             {
                 __result =
                     other is Tool b
                     && CommonUtils.commonCompares(__instance, other)
                     && a.UpgradeLevel == b.UpgradeLevel
-                    && CommonUtils.equalEnchantLists(a.enchantments, b.enchantments)
-                    && a.AttachmentSlotsCount == 0;
+                    && CommonUtils.equalEnchantLists(a.enchantments, b.enchantments);
             }
         }
         catch (Exception ex)
