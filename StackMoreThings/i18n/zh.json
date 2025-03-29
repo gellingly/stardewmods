@@ -1,0 +1,15 @@
+{
+    "Stacks": "堆叠类型",
+    "SettingsInstructions": "如果某些物品出现错误，可单独切换其堆叠设置",
+    "Weapons": "武器",
+    "Tools": "工具",
+    "MaxStackSize": "所有物品最大堆叠数量",
+    "MaxStackSizeTooltip": "如果输入不是有效数字，将自动设为9999",
+    "ColorMerge": "合并颜色",
+    "ColorMergeTooltip": "整理箱子或背包时按住此键，可将多色物品合并为单一颜色",
+    "QualityReduce": "降低品质",
+    "QualityReduceTooltip": "整理箱子或背包时按住此键，可将物品品质降为无品质",
+    "Keybinds": "快捷键设置",
+    "EnableComplexPatches": "启用复杂补丁",
+    "EnableComplexPatchesTooltip": "启用钓鱼用具使用、家具放置、锻造等功能的正确行为。默认保持开启，仅在发现问题时关闭"
+}
