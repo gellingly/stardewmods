@@ -1,5 +1,6 @@
 using HarmonyLib;
 using StardewValley;
+using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace StackMoreThings.Patches;
@@ -11,7 +12,9 @@ public static class ToolStackSize
     {
         CommonUtils.setMaxStackSize(
             ref __result,
-            CommonUtils.config.Tools && __instance.AttachmentSlotsCount == 0
+            CommonUtils.config.Tools
+                && __instance.AttachmentSlotsCount == 0
+                && __instance is not MeleeWeapon
         );
     }
 }
@@ -53,7 +56,11 @@ public static class FishingRodAttachment
     {
         try
         {
-            if (o == null && __instance.AttachmentSlotsCount == 0)
+            if (
+                o == null
+                && __instance.AttachmentSlotsCount == 0
+                && CommonUtils.config.EnableComplexPatches
+            )
             {
                 __result = false;
             }
@@ -62,5 +69,49 @@ public static class FishingRodAttachment
         {
             CommonUtils.harmonyExceptionPrint(ex);
         }
+    }
+}
+
+[HarmonyPatch(typeof(ItemGrabMenu), nameof(ItemGrabMenu.organizeItemsInList))]
+public static class StackToolsWhileSorting
+{
+    public static bool Prefix(ref IList<Item> items)
+    {
+        try
+        {
+            if (!CommonUtils.config.EnableComplexPatches)
+            {
+                return true;
+            }
+            // Helps make sure we don't accidentally sort something that
+            // shouldn't be sorted?  Copied pretty much directly from game code
+            for (int i = 0; i < items.Count; i++)
+            {
+                Item item = items[i];
+                if (item is not Tool || item.getRemainingStackSpace() <= 0)
+                {
+                    continue;
+                }
+
+                for (int j = i + 1; j < items.Count; j++)
+                {
+                    Item item2 = items[j];
+                    if (item.canStackWith(item2))
+                    {
+                        item2.Stack = item.addToStack(item2);
+                        if (item2.Stack == 0)
+                        {
+                            items.RemoveAt(j);
+                            j--;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+        return true;
     }
 }
