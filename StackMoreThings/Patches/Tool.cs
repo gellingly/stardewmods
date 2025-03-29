@@ -31,7 +31,6 @@ public static class ToolCanStackWith
                 && CommonUtils.config.Tools
                 && __instance is not MeleeWeapon
                 && a.AttachmentSlotsCount == 0
-                && CommonUtils.config.EnableComplexPatches
             )
             {
                 __result =
