@@ -11,6 +11,8 @@ static class CommonUtils
     public static ModConfig config;
     public static IMonitor monitor;
 
+    public static bool hasHappyHomeDesigner;
+
     public static bool commonCompares(Item a, ISalable b)
     {
         return a != null
