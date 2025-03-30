@@ -1,3 +1,5 @@
+namespace AdjustBombSpeed;
+
 public sealed class ModConfig
 {
     public float CherryBombMultiplier { get; set; } = 0.5F;

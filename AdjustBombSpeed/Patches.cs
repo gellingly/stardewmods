@@ -1,6 +1,8 @@
 using StardewModdingAPI;
 using StardewValley;
 
+namespace AdjustBombSpeed;
+
 internal class Patches
 {
     private static IMonitor Monitor;
