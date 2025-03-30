@@ -126,7 +126,7 @@ public static class TackleConsumeStack
     }
 }
 
-[HarmonyPatch(typeof(FishingRod), nameof(FishingRod.doneFishing))]
+[HarmonyPatch(typeof(FishingRod), "doDoneFishing")]
 public static class TackleDoneFishing
 {
     static List<StardewValley.Object> tacklesOnRod;
