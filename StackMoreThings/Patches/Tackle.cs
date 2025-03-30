@@ -1,7 +1,9 @@
 using HarmonyLib;
+using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Extensions;
+using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace StackMoreThings.Patches;
@@ -180,17 +182,20 @@ public static class TackleDoneFishing
     }
 }
 
-[HarmonyPatch(typeof(Tool), nameof(Tool.attach))]
-public static class ToolAttach
+public static class TackleUtil
 {
-    static StardewValley.Object copyTackle(StardewValley.Object o)
+    public static StardewValley.Object copyTackle(StardewValley.Object o)
     {
         StardewValley.Object newO = (StardewValley.Object)o.getOne();
         newO.uses.Value = o.uses.Value;
         newO.Stack = o.Stack;
         return newO;
     }
+}
 
+[HarmonyPatch(typeof(Tool), nameof(Tool.attach))]
+public static class ToolAttach
+{
     // Prioritize putting tackle into empty tackle spots over stacking.  Prefix
     // figures out if this is the case, postfix applies the change
     static List<StardewValley.Object> desiredTackle = null;
@@ -219,11 +224,11 @@ public static class ToolAttach
                             desiredTackle.Add(null);
                             continue;
                         }
-                        desiredTackle.Add(copyTackle(o));
+                        desiredTackle.Add(TackleUtil.copyTackle(o));
                         replaceTackle = true;
                         continue;
                     }
-                    desiredTackle.Add(copyTackle(a));
+                    desiredTackle.Add(TackleUtil.copyTackle(a));
                 }
             }
         }
@@ -258,5 +263,97 @@ public static class ToolAttach
         {
             CommonUtils.harmonyExceptionPrint(ex);
         }
+    }
+}
+
+[HarmonyPatch(typeof(InventoryMenu), nameof(InventoryMenu.rightClick))]
+public class InventoryMenuRightClick
+{
+    public static StardewValley.Object correctToAddTo = null;
+    public static StardewValley.Object toAddToRef = null;
+
+    public static bool Prefix(
+        InventoryMenu __instance,
+        int x,
+        int y,
+        Item toAddTo,
+        bool onlyCheckToolAttachments
+    )
+    {
+        try
+        {
+            if (
+                toAddTo == null
+                || toAddTo is not StardewValley.Object o
+                || o.Category != -22
+                || !CommonUtils.config.EnableComplexPatches
+                || !CommonUtils.config.Tackle
+                || onlyCheckToolAttachments
+            )
+            {
+                return true;
+            }
+            foreach (ClickableComponent item in __instance.inventory)
+            {
+                int slotNumber = Convert.ToInt32(item.name);
+                Item? slot = (
+                    (slotNumber < __instance.actualInventory.Count)
+                        ? __instance.actualInventory[slotNumber]
+                        : null
+                );
+                if (
+                    !item.containsPoint(x, y)
+                    || slotNumber >= __instance.actualInventory.Count
+                    || (slot != null && !__instance.highlightMethod(slot))
+                    || slot == null
+                    || slot is not StardewValley.Object so
+                    || so.Category != -22
+                    || !slot.canStackWith(toAddTo)
+                    || toAddTo.Stack >= toAddTo.maximumStackSize()
+                )
+                {
+                    continue;
+                }
+                int amount = 1;
+                if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, [new InputButton(Keys.LeftShift)]))
+                {
+                    int amountToAdd = (int)Math.Ceiling(slot.Stack / 2.0);
+                    amountToAdd = Math.Min(toAddTo.maximumStackSize() - toAddTo.Stack, amountToAdd);
+                    amount = amountToAdd;
+                }
+                toAddToRef = o;
+                var takenFrom = TackleUtil.copyTackle(so);
+                correctToAddTo = TackleUtil.copyTackle(o);
+                takenFrom.Stack = amount;
+                correctToAddTo.addToStack(takenFrom);
+            }
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+        return true;
+    }
+
+    public static void Postfix()
+    {
+        try
+        {
+            if (
+                CommonUtils.config.EnableComplexPatches
+                && CommonUtils.config.Tackle
+                && correctToAddTo != null
+            )
+            {
+                toAddToRef.Stack = correctToAddTo.Stack;
+                toAddToRef.uses.Value = correctToAddTo.uses.Value;
+            }
+        }
+        catch (Exception ex)
+        {
+            CommonUtils.harmonyExceptionPrint(ex);
+        }
+        toAddToRef = null;
+        correctToAddTo = null;
     }
 }
