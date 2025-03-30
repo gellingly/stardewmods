@@ -72,7 +72,6 @@ def update_mods():
         shutil.move(unzip_to / mod_name, mod)
 
         shutil.rmtree(unzip_to)
-        os.remove(file)
         print(f"  finished {Path(file).stem}")
 
 
