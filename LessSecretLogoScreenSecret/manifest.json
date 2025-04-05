@@ -1,0 +1,12 @@
+{
+  "Name": "Less Secret Logo Screen Secret",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Junimo logo menu screen happens more frequently",
+  "UniqueID": "gellingly.LessSecretLogoScreenSecret",
+  "EntryDll": "LessSecretLogoScreenSecret.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:32942"
+  ]
+}
