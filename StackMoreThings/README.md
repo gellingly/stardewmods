@@ -6,6 +6,7 @@ Multiplayer has been reported as working.
 
 ## Translations
 * Chinese - thanks to anonymous user
+* French - thanks to [DollyGethFR](https://next.nexusmods.com/profile/DollyGethFR)
 
 ## Config Options
 Supports Generic Mod Config Menu
