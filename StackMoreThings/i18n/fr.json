@@ -1,0 +1,15 @@
+{
+    "Stacks": "Types de piles",
+    "SettingsInstructions": "Activer ou désactiver l'empilement des éléments individuels si quelque chose est défectueux",
+    "Weapons": "Armes",
+    "Tools": "Outils",
+    "MaxStackSize": "Taille maximale de pile pour tous les éléments.",
+    "MaxStackSizeTooltip": "Si la valeur entrée n’est pas un nombre valide, elle sera définie à 9999",
+    "ColorMerge": "Fusionner les couleurs",
+    "ColorMergeTooltip": "Maintenez cette touche enfoncée pendant que vous organisez votre coffre ou inventaire pour fusionner les couleurs avec plusieurs couleurs en une seule",
+    "QualityReduce": "Réduire la qualité",
+    "QualityReduceTooltip": "Maintenez cette touche enfoncée pendant que vous organisez votre coffre ou votre inventaire pour réduire la qualité des objets à zéro",
+    "Keybinds": "Raccourcis clavier",
+    "EnableComplexPatches": "Activer les correctifs complexes",
+    "EnableComplexPatchesTooltip": "Active le comportement correct pour l'utilisation du matériel, le placement des meubles, la forge, etc. En général, cette option doit être activée. Ne la désactivez que si vous constatez des bugs"
+}
