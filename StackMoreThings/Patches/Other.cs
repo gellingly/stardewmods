@@ -55,13 +55,35 @@ public static class StackColorQuality
                 && o is ColoredObject co
             )
             {
-                if (colorCache.ContainsKey(i.QualifiedItemId))
+                if (!colorCache.ContainsKey(i.QualifiedItemId))
                 {
-                    co.color.Value = colorCache[i.QualifiedItemId];
+                    colorCache[i.QualifiedItemId] = co.color.Value;
+                }
+            }
+        }
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (
+                items[i] is StardewValley.Object o
+                && cropCategories.Contains(o.Category)
+                && colorCache.ContainsKey(items[i].QualifiedItemId)
+            )
+            {
+                if (o is ColoredObject co)
+                {
+                    co.color.Value = colorCache[items[i].QualifiedItemId];
                 }
                 else
                 {
-                    colorCache[i.QualifiedItemId] = co.color.Value;
+                    var newObject = new ColoredObject(
+                        items[i].QualifiedItemId,
+                        items[i].Stack,
+                        colorCache[items[i].QualifiedItemId]
+                    );
+                    newObject.CopyFieldsFrom(items[i]);
+                    newObject.Quality = items[i].Quality;
+                    newObject.Stack = items[i].Stack;
+                    items[i] = newObject;
                 }
             }
         }
