@@ -1,0 +1,12 @@
+{
+  "Name": "Stackable Monster Musk Effects",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Allows you to stack the effects of Monster Musk",
+  "UniqueID": "gellingly.StackableMonsterMuskEffects",
+  "EntryDll": "StackableMonsterMuskEffects.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:34845"
+  ]
+}

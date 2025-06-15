@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackMoreThings", "StackMor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessSecretLogoScreenSecret", "LessSecretLogoScreenSecret\LessSecretLogoScreenSecret.csproj", "{4F9A1DCB-2C7C-409D-89AE-BF8B0521A272}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackableMonsterMuskEffects", "StackableMonsterMuskEffects\StackableMonsterMuskEffects.csproj", "{36B8EF1F-C745-4CEB-86E7-29D3EDE006CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{4F9A1DCB-2C7C-409D-89AE-BF8B0521A272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F9A1DCB-2C7C-409D-89AE-BF8B0521A272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F9A1DCB-2C7C-409D-89AE-BF8B0521A272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B8EF1F-C745-4CEB-86E7-29D3EDE006CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B8EF1F-C745-4CEB-86E7-29D3EDE006CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B8EF1F-C745-4CEB-86E7-29D3EDE006CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B8EF1F-C745-4CEB-86E7-29D3EDE006CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
