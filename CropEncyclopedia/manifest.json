@@ -1,0 +1,18 @@
+{
+  "Name": "Crop Encyclopedia",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Provides information about crops",
+  "UniqueID": "gellingly.CropEncyclopedia",
+  "EntryDll": "CropEncyclopedia.dll",
+  "MinimumApiVersion": "4.0.0",
+  "Dependencies": [
+    {
+      "UniqueID": "focustense.StardewUI",
+      "MinimumVersion": "0.6.1"
+    }
+  ],
+  "UpdateKeys": [
+    "Nexus:35032"
+  ]
+}
