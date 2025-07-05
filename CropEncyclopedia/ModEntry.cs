@@ -15,6 +15,7 @@ internal sealed class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         Utils.Monitor = this.Monitor;
+        Utils.Helper = this.Helper;
         this.Config = this.Helper.ReadConfig<ModConfig>();
         helper.Events.GameLoop.GameLaunched += GameLoop_GameLaunched;
         helper.Events.Input.ButtonPressed += Input_ButtonPressed;
@@ -48,9 +49,15 @@ internal sealed class ModEntry : Mod
 internal static class Utils
 {
     public static IMonitor Monitor;
+    public static IModHelper Helper;
 
     public static void Log(string s)
     {
         Monitor.Log(s, LogLevel.Debug);
+    }
+
+    public static string GetTranslation(string label)
+    {
+        return Helper.Translation.Get(label);
     }
 }

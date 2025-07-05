@@ -144,11 +144,11 @@ internal partial class CropEncyclopediaData : INotifyPropertyChanged
         s =>
             s switch
             {
-                0 => "All Seasons",
-                1 => "Spring",
-                2 => "Summer",
-                3 => "Fall",
-                _ => "Winter",
+                0 => Utils.GetTranslation("options.seasons.all"),
+                1 => Utils.GetTranslation("options.seasons.spring"),
+                2 => Utils.GetTranslation("options.seasons.summer"),
+                3 => Utils.GetTranslation("options.seasons.fall"),
+                _ => Utils.GetTranslation("options.seasons.winter"),
             };
 
     [Notify]
@@ -158,9 +158,9 @@ internal partial class CropEncyclopediaData : INotifyPropertyChanged
         mh =>
             mh switch
             {
-                0 => "Both",
-                1 => "Single Harvest",
-                _ => "Regrows",
+                0 => Utils.GetTranslation("options.regrowth.both"),
+                1 => Utils.GetTranslation("options.regrowth.singleHarvest"),
+                _ => Utils.GetTranslation("options.regrowth.regrows"),
             };
 
     [Notify]
@@ -177,11 +177,13 @@ internal partial class CropEncyclopediaData : INotifyPropertyChanged
         wt =>
             wt switch
             {
-                0 => "All",
-                StardewValley.Object.VegetableCategory => "Vegetable",
-                StardewValley.Object.FruitsCategory => "Fruit",
-                StardewValley.Object.flowersCategory => "Flower",
-                _ => "Other",
+                0 => Utils.GetTranslation("options.type.all"),
+                StardewValley.Object.VegetableCategory => Utils.GetTranslation(
+                    "options.type.vegetable"
+                ),
+                StardewValley.Object.FruitsCategory => Utils.GetTranslation("options.type.fruit"),
+                StardewValley.Object.flowersCategory => Utils.GetTranslation("options.type.flower"),
+                _ => Utils.GetTranslation("options.type.other"),
             };
 
     [Notify]
@@ -191,10 +193,10 @@ internal partial class CropEncyclopediaData : INotifyPropertyChanged
         wt =>
             wt switch
             {
-                0 => "None",
-                1 => "Speed-Gro (10%)",
-                2 => "Deluxe Speed-Gro (25%)",
-                _ => "Hyper Speed-Gro (33%)",
+                0 => Utils.GetTranslation("options.fertilizer.none"),
+                1 => Utils.GetTranslation("options.fertilizer.speedGro"),
+                2 => Utils.GetTranslation("options.fertilizer.deluxeSpeedGro"),
+                _ => Utils.GetTranslation("options.fertilizer.hyperSpeedGro"),
             };
 
     public event PropertyChangedEventHandler? PropertyChanged;
