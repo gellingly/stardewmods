@@ -113,10 +113,30 @@ internal record SeedInfo
             return greenhouseLogic || cropData.Seasons.Contains(date.Season);
         }
 
+        bool isInSeasonMid(WorldDate start, WorldDate end)
+        {
+            if (!isInSeason(start) || !isInSeason(end))
+            {
+                return false;
+            }
+            for (
+                var curr = start;
+                curr < end;
+                curr = WorldDate.ForDaysPlayed(curr.TotalDays + WorldDate.DaysPerMonth)
+            )
+            {
+                if (!isInSeason(curr))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         harvestDate = lastHarvestDate = WorldDate.ForDaysPlayed(
             Game1.Date.TotalDays + daysForGrowth
         );
-        if (!isInSeason(Game1.Date) || !isInSeason(harvestDate))
+        if (!isInSeasonMid(Game1.Date, harvestDate))
         {
             harvestDate = lastHarvestDate = null;
             harvests = 0;
@@ -127,13 +147,19 @@ internal record SeedInfo
         {
             return;
         }
-        while (
-            isInSeason(lastHarvestDate!)
-            && lastHarvestDate!.TotalDays - Game1.Date.TotalDays < 28 * 4
-        )
+
+        while (true)
         {
+            var next = WorldDate.ForDaysPlayed(lastHarvestDate!.TotalDays + regrowDays);
+            if (
+                !isInSeasonMid(lastHarvestDate, next)
+                || lastHarvestDate!.TotalDays - Game1.Date.TotalDays > 28 * 4
+            )
+            {
+                break;
+            }
             harvests++;
-            lastHarvestDate = WorldDate.ForDaysPlayed(lastHarvestDate!.TotalDays + regrowDays);
+            lastHarvestDate = next;
         }
     }
 

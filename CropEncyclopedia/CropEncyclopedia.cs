@@ -18,6 +18,7 @@ internal static class Retain
                 cropEncyclopediaData.SpecialPropertyChangedHandler
             );
         }
+        cropEncyclopediaData.DoRefresh();
         return cropEncyclopediaData;
     }
 }
@@ -199,6 +200,11 @@ internal partial class CropEncyclopediaData : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public CropEncyclopediaData()
+    {
+        DoRefresh();
+    }
+
+    public void DoRefresh()
     {
         _seedInfos = CropUtils.getAllSeeds(Fertilizer, GreenhouseLogic);
         doSort();
