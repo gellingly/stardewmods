@@ -1,7 +1,7 @@
 {
   "Name": "Crop Encyclopedia",
   "Author": "gellingly",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "Description": "Provides information about crops",
   "UniqueID": "gellingly.CropEncyclopedia",
   "EntryDll": "CropEncyclopedia.dll",
