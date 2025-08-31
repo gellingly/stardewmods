@@ -23,7 +23,7 @@ internal sealed class ModEntry : Mod
 
         CommonUtils.log("Start patching");
         var harmony = new Harmony(this.ModManifest.UniqueID);
-        harmony.PatchAll();
+        harmony.PatchAll(typeof(ModEntry).Assembly);
         CommonUtils.log("Finished patching");
     }
 
