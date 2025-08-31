@@ -86,7 +86,6 @@ internal sealed class ModEntry : Mod
                     () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Ring.cs.1")
                 },
                 { "Weapons", () => this.Helper.Translation.Get("Weapons") },
-                { "Trinkets", () => Game1.content.LoadString("Strings\\1_6_Strings:Trinket") },
                 {
                     "Furniture",
                     () => Game1.content.LoadString("Strings\\StringsFromCSFiles:Object.cs.12859")
@@ -100,6 +99,7 @@ internal sealed class ModEntry : Mod
                     () => Game1.content.LoadString("Strings\\StringsFromCSFiles:category_clothes")
                 },
                 { "Tools", () => this.Helper.Translation.Get("Tools") },
+                { "Trinkets", () => Game1.content.LoadString("Strings\\1_6_Strings:Trinket") },
             };
         foreach (var configName in configNames)
         {
@@ -114,6 +114,13 @@ internal sealed class ModEntry : Mod
                     this.Config.GetType().GetProperty(configName.Key)?.SetValue(this.Config, value)
             );
         }
+        configMenu.AddBoolOption(
+            mod: this.ModManifest,
+            name: () => this.Helper.Translation.Get("AggressiveTrinketStacking"),
+            tooltip: () => this.Helper.Translation.Get("AggressiveTrinketStackingTooltip"),
+            getValue: () => this.Config.AggressiveTrinketStacking,
+            setValue: value => this.Config.AggressiveTrinketStacking = value
+        );
         configMenu.AddSectionTitle(
             mod: this.ModManifest,
             text: () => this.Helper.Translation.Get("Keybinds")

@@ -18,4 +18,5 @@ public sealed class ModConfig
     public bool EnableComplexPatches { get; set; } = true;
     public SButton ColorMergeKey { get; set; } = SButton.F10;
     public SButton QualityReduceKey { get; set; } = SButton.F9;
+    public bool AggressiveTrinketStacking { get; set; } = false;
 }

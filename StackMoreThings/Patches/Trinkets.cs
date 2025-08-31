@@ -23,6 +23,21 @@ public static class TrinketCanStackWith
             if (__instance is Trinket && CommonUtils.config.Trinkets)
             {
                 __result = CommonUtils.commonCompares(__instance, other);
+                if (
+                    CommonUtils.config.AggressiveTrinketStacking
+                    && (
+                        __instance.QualifiedItemId == "(TR)MagicQuiver"
+                        || __instance.QualifiedItemId == "(TR)IceRod"
+                    )
+                )
+                {
+                    __result =
+                        __instance != null
+                        && other != null
+                        && __instance.QualifiedItemId == other.QualifiedItemId
+                        && __instance.GetType() == other.GetType()
+                        && __instance.DisplayName == other.DisplayName;
+                }
             }
         }
         catch (Exception ex)

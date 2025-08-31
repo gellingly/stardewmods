@@ -11,5 +11,7 @@
     "QualityReduceTooltip": "Hold down this key while organizing your chest or inventory to reduce the quality of items to none",
     "Keybinds": "Keybinds",
     "EnableComplexPatches": "Enable complex patches",
-    "EnableComplexPatchesTooltip": "Enables correct behavior for tackle usage, furniture placement, forging, etc. Generally should be turned on. Turn off only if you see bugs"
+    "EnableComplexPatchesTooltip": "Enables correct behavior for tackle usage, furniture placement, forging, etc. Generally should be turned on. Turn off only if you see bugs",
+    "AggressiveTrinketStacking": "Aggressive Trinket Stacking",
+    "AggressiveTrinketStackingTooltip": "Reduces restrictions on which Ice Rods and Magic Quivers can stack with each other"
 }

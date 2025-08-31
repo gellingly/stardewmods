@@ -24,6 +24,7 @@ There is one option for each of the previously unstackable things and are all en
 * Tackle
 * Tools
 * Trinkets
+  * Aggressive Trinket Stacking - Reduces restrictions on which Ice Rods and Magic Quivers can stack with each other so the stats do not need to be the same, only the display name (ex Perfect, Heavy, etc).  Stats for trinkets that get stacked due to this are not preserved.  This should generally be false unless you have a lot of trinkets (default: false).
 * Wallpaper
 
 Two keybinds for merging colors and reducing quality:
