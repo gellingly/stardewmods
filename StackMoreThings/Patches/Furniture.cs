@@ -23,7 +23,16 @@ public class FurnitureCanStackWith
             if (__instance is Furniture && CommonUtils.config.Furniture)
             {
                 __result = CommonUtils.commonCompares(__instance, other);
-
+                if (
+                    __instance is RandomizedPlantFurniture rpf1
+                    && other is RandomizedPlantFurniture rpf2
+                )
+                {
+                    __result &=
+                        rpf1.topIndex.Value == rpf2.topIndex.Value
+                        && rpf1.middleIndex.Value == rpf2.middleIndex.Value
+                        && rpf1.bottomIndex.Value == rpf2.bottomIndex.Value;
+                }
                 if (__instance is StorageFurniture sf1 && other is StorageFurniture sf2)
                 {
                     if (sf1.heldItems.Count != 0 || sf2.heldItems.Count != 0)
