@@ -1,0 +1,13 @@
+{
+  "Name": "Indoor Pigs",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Pigs don't need to go outside to find truffles",
+  "UniqueID": "gellingly.IndoorPigs",
+  "UpdateKeys": [
+    "Nexus:37186"
+  ],
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  }
+}

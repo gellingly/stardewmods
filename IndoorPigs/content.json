@@ -1,0 +1,15 @@
+{
+  "Format": "2.8.0",
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/FarmAnimals",
+      "Fields": {
+        "Pig": {
+          "CanEatGoldenCrackers": true,
+          "HarvestType": "DropOvernight"
+        }
+      }
+    }
+  ]
+}
