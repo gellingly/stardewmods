@@ -82,6 +82,7 @@ def open_links():
     for line in lines:
         if (x := re.search(r": (https?://.*) \(you have .*\)", line)) is not None:
             link = x.group(1)
+            link = f"{link}?tab=files"
             print(link)
             webbrowser.open(link)  # Open the link in the default web browser
 
