@@ -1,3 +1,9 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "dotenv>=0.9.9",
+# ]
+# ///
 import argparse
 import glob
 from pathlib import Path
