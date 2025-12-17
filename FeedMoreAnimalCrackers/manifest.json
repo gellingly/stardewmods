@@ -1,0 +1,12 @@
+{
+  "Name": "FeedMoreAnimalCrackers",
+  "Author": "gellingly",
+  "Version": "1.0.0",
+  "Description": "Give multiple animal crackers to an animal",
+  "UniqueID": "gellingly.FeedMoreAnimalCrackers",
+  "EntryDll": "FeedMoreAnimalCrackers.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:40273"
+  ]
+}
