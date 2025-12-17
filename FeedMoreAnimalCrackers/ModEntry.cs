@@ -31,6 +31,7 @@ internal sealed class ModEntry : Mod
                 "The current menu is not an animal or pond query menu, doing nothing",
                 LogLevel.Info
             );
+            return;
         }
 
         bool toReturn = false;
@@ -51,16 +52,19 @@ internal sealed class ModEntry : Mod
             pond.goldenAnimalCracker.Value = false;
             instance = pond;
         }
-        var additionalCrackers = Utils.getAdditionalCrackers(instance!);
         if (toReturn)
         {
             Utils.monitor.Log($"Found a base cracker", LogLevel.Info);
             Game1.player.addItemToInventory(ItemRegistry.Create(Utils.AnimalCrackerID, 1));
         }
-        Utils.monitor.Log($"Found {additionalCrackers} additonal crackers", LogLevel.Info);
+        var additionalCrackers = Utils.getAdditionalCrackers(instance!);
+        Utils.monitor.Log($"Found {additionalCrackers} additional crackers", LogLevel.Info);
         Utils.setZero(instance!);
-        Game1.player.addItemToInventory(
-            ItemRegistry.Create(Utils.AnimalCrackerID, additionalCrackers)
-        );
+        if (additionalCrackers > 0)
+        {
+            Game1.player.addItemToInventory(
+                ItemRegistry.Create(Utils.AnimalCrackerID, additionalCrackers)
+            );
+        }
     }
 }
